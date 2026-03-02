@@ -38,9 +38,8 @@ def save_to_csv(temperature, humidity):
         writer.writerow({'time': formatted_time, 'temperature': temperature, 'humidity': humidity})
 
 def save_to_influxdb(temperature, humidity):
-    print("Testing the values types", flush=True)
-    print(temperature, humidity)
-    print(type(temperature), type(humidity))
+    print("Temperature, Humidity", flush=True)
+    print(temperature, humidity)   
    
     points = [
         Point("values_sensor")
@@ -62,9 +61,7 @@ def save_to_influxdb(temperature, humidity):
 
 
 @app.route('/')
-def index():
-    print(f"connected to {INFLUX_DB}", flush=True)
-    print(f"connected to {INFLUX_HOST}")
+def index():  
     return jsonify("main page"),200
 
 
@@ -81,6 +78,10 @@ def data_received():
 
     return 'Data received', 200
 
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({"status": "healthy"}), 200
+    
 
 if __name__ == '__main__':
     print("Starting server...")

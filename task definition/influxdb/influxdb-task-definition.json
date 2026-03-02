@@ -1,0 +1,37 @@
+{
+    "family": "influxdb-taskdefinition",
+    "executionRoleArn": "arn:aws:iam::001239102331:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "runtimePlatform":
+        {
+            "operatingSystemFamily": "LINUX"
+        },          
+
+    "containerDefinitions": [
+        {
+            "name": "influxdb-core",
+            "image": "influxdb:3-core",
+            "portMappings": [
+                {
+                    "containerPort": 8181,
+                    "hostPort": 8181,
+                    "protocol": "tcp"
+                }
+            ],
+               "logConfiguration":{
+                "logDriver":"awslogs",
+                "options":{
+                    "awslogs-group":"/ecs/influxdb",
+                    "awslogs-create-group": "true",
+                    "awslogs-region":"us-east-1",
+                    "awslogs-stream-prefix":"ecs"
+                }   
+             }                 
+            
+        }
+    ],    
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "1 vCPU",
+    "memory": "3 GB"  
+   
+}
