@@ -1,0 +1,10 @@
+.kiro/
+.vscode/
+data/
+plugins;C/
+venv/
+infrastructure/.terraform/
+infrastructure/*.tfstate
+infrastructure/*.tfstate.*
+infrastructure/terraform.tfvars
+*.log
