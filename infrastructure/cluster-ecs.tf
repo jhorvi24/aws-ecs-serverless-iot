@@ -187,10 +187,7 @@ resource "aws_service_discovery_service" "influxdb-service-discovery" {
     }
   }
 
-  health_check_custom_config {
-    failure_threshold = 1
 
-  }
 }
 
 
