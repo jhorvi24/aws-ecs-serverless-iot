@@ -8,7 +8,7 @@ resource "aws_ecs_cluster" "IoT-cluster" {
 
 resource "aws_ecs_task_definition" "webserver-iot-task-definition" {
 
-  family                   = "webserver-iot-taskdefinition"
+  family                   = "webserver-iot-taskdefinition-tf"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   memory                   = "3 GB"
@@ -57,7 +57,7 @@ resource "aws_ecs_task_definition" "webserver-iot-task-definition" {
 
 resource "aws_ecs_task_definition" "influxdb-task-definition" {
 
-  family                   = "influxdb-taskdefinition"
+  family                   = "influxdb-taskdefinition-tf"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   memory                   = "3 GB"
@@ -93,7 +93,7 @@ resource "aws_ecs_task_definition" "influxdb-task-definition" {
 
 resource "aws_ecs_task_definition" "grafana-task-definition" {
 
-  family                   = "grafana-taskdefinition"
+  family                   = "grafana-taskdefinition-tf"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   memory                   = "3 GB"
