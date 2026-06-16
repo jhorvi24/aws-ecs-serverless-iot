@@ -5,7 +5,7 @@
 #include "credentials.h"
 #include <ArduinoJson.h>
 
-const char* server = "alb-iot-927070167.us-east-1.elb.amazonaws.com";
+const char* server = "alb-iot-1024585334.us-east-1.elb.amazonaws.com";
 const int httpPort = 80;
 const char* Endpoint = "/data";
 
