@@ -37,11 +37,31 @@ resource "aws_subnet" "subred-publica-B" {
 
 resource "aws_subnet" "subred-privada-A" {
   vpc_id                  = aws_vpc.iot-ecs-red.id
-  cidr_block              = "10.0.2.0/24"
+  cidr_block              = var.cidr_subnet_private_a
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = false
   tags = {
     Name = "subred-privada-A"
+  }
+}
+
+resource "aws_subnet" "subred-privada-B" {
+  vpc_id                  = aws_vpc.iot-ecs-red.id
+  cidr_block              = var.cidr_subnet_private_b
+  availability_zone       = "us-east-1b"
+  map_public_ip_on_launch = false
+  tags = {
+    Name = "subred-privada-B"
+  }
+}
+
+resource "aws_subnet" "subred-privada-AA" {
+  vpc_id                  = aws_vpc.iot-ecs-red.id
+  cidr_block              = var.cidr_subnet_private_aa
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = false
+  tags = {
+    Name = "subred-privada-AA"
   }
 }
 
@@ -83,39 +103,80 @@ resource "aws_route_table_association" "rt-igw-b-association" {
 
 }
 
-#Configuración del nat gateway
+#Configuración del nat gateway A y nat gateway B
 
-resource "aws_eip" "eip-nat" {
+resource "aws_eip" "eip-nat-a" {
   domain = "vpc"
 }
 
-resource "aws_nat_gateway" "ngw" {
-  allocation_id = aws_eip.eip-nat.id
+resource "aws_eip" "eip-nat-b" {
+  domain = "vpc"
+  
+}
+
+resource "aws_nat_gateway" "ngw-a" {
+  allocation_id = aws_eip.eip-nat-a.id
   subnet_id     = aws_subnet.subred-publica-A.id
   tags = {
-    Name = "ngw"
+    Name = "ngw-a"
   }
 
 }
 
-resource "aws_route_table" "rt-private-ngw" {
+resource "aws_nat_gateway" "ngw-b" {
+  allocation_id = aws_eip.eip-nat-b.id
+  subnet_id     = aws_subnet.subred-publica-B.id
+  tags = {
+    Name = "ngw-b"
+  }
+
+}
+
+#Creación de las tablas de enrutamiento para los NatGateway
+
+resource "aws_route_table" "rt-private-ngw-a" {
   vpc_id = aws_vpc.iot-ecs-red.id
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.ngw.id
+    gateway_id = aws_nat_gateway.ngw-a.id
   }
   tags = {
-    Name = "rt-private-ngw"
+    Name = "rt-private-ngw-a"
   }
 
 }
 
-resource "aws_route_table_association" "rt-ngw-association" {
-  subnet_id      = aws_subnet.subred-privada-A.id
-  route_table_id = aws_route_table.rt-private-ngw.id
+resource "aws_route_table" "rt-private-ngw-b" {
+  vpc_id = aws_vpc.iot-ecs-red.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.ngw-b.id
+  }
+  tags = {
+    Name = "rt-private-ngw-b"
+  }
 
 }
 
+#Asociaciones de la route tables con las subnets
+
+resource "aws_route_table_association" "rt-ngw-association-a" {
+  subnet_id      = aws_subnet.subred-privada-A.id
+  route_table_id = aws_route_table.rt-private-ngw-a.id
+
+}
+
+resource "aws_route_table_association" "rt-ngw-association-aa" {
+  subnet_id      = aws_subnet.subred-privada-AA.id
+  route_table_id = aws_route_table.rt-private-ngw-a.id
+
+}
+
+resource "aws_route_table_association" "rt-ngw-association-b" {
+  subnet_id      = aws_subnet.subred-privada-B.id
+  route_table_id = aws_route_table.rt-private-ngw-b.id
+
+}
 
 
 

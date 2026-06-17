@@ -137,9 +137,9 @@ resource "aws_ecs_service" "webserver-iot-service" {
   desired_count   = 2
   launch_type     = "FARGATE"
   network_configuration {
-    subnets         = [aws_subnet.subred-publica-A.id, aws_subnet.subred-publica-B.id]
+    subnets         = [aws_subnet.subred-privada-A.id, aws_subnet.subred-privada-B.id]
     security_groups = [aws_security_group.webserver-iot-sg.id]
-    assign_public_ip = true
+    assign_public_ip = false
   }
   load_balancer {
     target_group_arn = aws_lb_target_group.webserver-iot-tg.arn
@@ -156,7 +156,7 @@ resource "aws_ecs_service" "influxdb-service" {
   desired_count   = 1
   launch_type     = "FARGATE"
   network_configuration {
-    subnets         = [aws_subnet.subred-privada-A.id]
+    subnets         = [aws_subnet.subred-privada-AA.id]
     security_groups = [aws_security_group.db-sg.id]
   }
 

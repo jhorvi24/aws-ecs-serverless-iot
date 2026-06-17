@@ -35,7 +35,7 @@ resource "aws_security_group" "webserver-iot-sg" {
     from_port   = 5000
     to_port     = 5000
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.alb-iot-sg.id]
   }
 
   egress {
@@ -43,6 +43,10 @@ resource "aws_security_group" "webserver-iot-sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "webserver-iot-sg"
   }
 
 

@@ -8,3 +8,4 @@ infrastructure/*.tfstate
 infrastructure/*.tfstate.*
 infrastructure/terraform.tfvars
 *.log
+.claude/
