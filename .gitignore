@@ -1,7 +1,6 @@
 .kiro/
 .vscode/
 data/
-plugins;C/
 venv/
 infrastructure/.terraform/
 infrastructure/*.tfstate
@@ -12,3 +11,9 @@ s3-backend-remote/*.tfstate
 s3-backend-remote/*.tfstate.*
 *.log
 .claude/
+esp32-Client/esp32-client/credentials.h
+**/*.tfvars
+**/*.tfvars.json
+__pycache__/
+*.pyc
+*.pyo
