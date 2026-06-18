@@ -252,7 +252,26 @@ terraform plan
 terraform apply
 ```
 
-### 3. Build & push web server image
+### 3. Configure ESP32
+
+Edit `esp32-Client/esp32-client/credentials.h` with your WiFi credentials:
+
+```cpp
+#define credentials
+
+const char* ssid     = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
+```
+
+Then update the server address in `esp32-Client/esp32-client/esp32-client.ino` with the ALB DNS output from Terraform:
+
+```cpp
+const char* server = "<your-alb-dns>.us-east-1.elb.amazonaws.com";
+```
+
+> ⚠️ `credentials.h` is listed in `.gitignore` — never commit real credentials.
+
+### 4. Build & push web server image
 
 ```bash
 aws ecr get-login-password --region us-east-1 | \
