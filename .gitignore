@@ -11,7 +11,6 @@ s3-backend-remote/*.tfstate
 s3-backend-remote/*.tfstate.*
 *.log
 .claude/
-esp32-Client/esp32-client/credentials.h
 **/*.tfvars
 **/*.tfvars.json
 __pycache__/

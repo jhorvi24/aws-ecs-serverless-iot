@@ -269,7 +269,7 @@ Then update the server address in `esp32-Client/esp32-client/esp32-client.ino` w
 const char* server = "<your-alb-dns>.us-east-1.elb.amazonaws.com";
 ```
 
-> ⚠️ `credentials.h` is listed in `.gitignore` — never commit real credentials.
+> ⚠️ Replace the placeholder values with your real credentials before flashing the ESP32. Never push real credentials to a public repository.
 
 ### 4. Build & push web server image
 
