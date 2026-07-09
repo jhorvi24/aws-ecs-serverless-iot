@@ -176,9 +176,9 @@ resource "aws_ecs_service" "grafana-service" {
   desired_count   = 1
   launch_type     = "FARGATE"
   network_configuration {
-    subnets          = [aws_subnet.subred-publica-A.id, aws_subnet.subred-publica-B.id]
+    subnets          = [aws_subnet.subred-privada-AA.id]
     security_groups  = [aws_security_group.grafana-sg.id]
-    assign_public_ip = true
+    
   }
   load_balancer {
     target_group_arn = aws_lb_target_group.grafana-tg.arn

@@ -40,6 +40,7 @@ This project implements a **production-ready IoT data pipeline** where an ESP32 
 
 ## 🏗 Architecture
 
+![arquitectura aws](img/ecs_architecture_2.png)
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Internet                                 │
@@ -69,6 +70,7 @@ This project implements a **production-ready IoT data pipeline** where an ESP32 
  ESP32 ──► ALB ──► Web Server ──► InfluxDB
  Stakeholders ──► ALB ──► Grafana ──► InfluxDB
 ```
+
 
 ### Network Layout
 
