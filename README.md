@@ -47,11 +47,11 @@ This project implements a **production-ready IoT data pipeline** where an ESP32 
 
 ```
 VPC 10.0.0.0/16
-├── 🌐 Public Subnet A  (10.0.1.0/24)  us-east-1a  → ALB, Grafana
-├── 🌐 Public Subnet B  (10.0.3.0/24)  us-east-1b  → ALB, Grafana
+├── 🌐 Public Subnet A  (10.0.1.0/24)  us-east-1a  → ALB
+├── 🌐 Public Subnet B  (10.0.3.0/24)  us-east-1b  → ALB
 ├── 🔒 Private Subnet A (10.0.2.0/24)  us-east-1a  → Web Server
 ├── 🔒 Private Subnet B (10.0.4.0/24)  us-east-1b  → Web Server
-└── 🔐 Private Subnet AA(10.0.5.0/24)  us-east-1a  → InfluxDB (isolated)
+└── 🔐 Private Subnet AA(10.0.5.0/24)  us-east-1a  → InfluxDB + Grafana (isolated)
 ```
 
 ---
@@ -148,7 +148,7 @@ ecs-serverless-iot/
 |---|---|---|---|
 | `webserver-iot-service` | Private A/B | 2 | 5000 |
 | `influxdb-service` | Private AA (isolated) | 1 | 8181 |
-| `grafana-service` | Public A/B | 1 | 3000 |
+| `grafana-service` | Private AA (isolated) | 1 | 3000 |
 
 ### Security Groups
 
